@@ -1,6 +1,6 @@
 # CSS Structure Doc
 This doc outlines css conventions and such.
-Note: this is all just opinion.
+Note: this is all just opinion, feel free to challenge this.
 
 ## Notes
 
@@ -22,7 +22,7 @@ Note: this is all just opinion.
 The way I would suggest to structure your files is as follows.
 I will use sass as an example here.
 
-```
+```json
 {
   "scss": {
     "base" : {
@@ -52,7 +52,7 @@ I will use sass as an example here.
 ```
 This structure uses the 7-1 pattern, where all of the _file.scss' are imported into main.scss.
 
-Sass is smart emough for you to omit the `_` of the file name when you call it
+Sass is smart enough for you to omit the `_` of the file name when you call it
 
 ## Code structure
 
@@ -68,7 +68,7 @@ WRONG
 
 RIGHT
 ```css
-  .nav-bar__link a:hover {
+  .nav-bar__link:hover {
     color: red;
   }
 ```
@@ -120,11 +120,11 @@ RIGHT
 
 * Never inline - inline styles are hard to maintain.
 
-* !IMPORTANT, dont use !important
+* !IMPORTANT, don't use !important
 
 ## Layout
 
-WRONG (space out your css, let minification do this part for you)
+WRONG (space out your css, let minifiers do this part for you)
 ```css
   .link--primary {color: red}
 ```
@@ -134,7 +134,7 @@ WRONG (Use shorthand, this can be acheived in one line: `margin: 20px 10px;`)
   .link--primary {
     margin-left: 10px;
     margin-top: 20px;
-    margin-right: 10px
+    margin-right: 10px;
     margin-bottom: 20px;
   }
 ```
@@ -164,5 +164,18 @@ WRONG (avoid universal selectors)
 ```css
   .link--primary * {
     color: green;
+  }
+```
+
+WRONG (Avoid setting heights on elements)
+```css
+  .element {
+    height: 100px
+  }
+```
+RIGHT
+```css
+  .element {
+    min-height: 100%;
   }
 ```
