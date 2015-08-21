@@ -22,7 +22,7 @@ Note: this is all just opinion, feel free to challenge this.
 The way I would suggest to structure your files is as follows.
 I will use sass as an example here.
 
-```json
+```
 {
   "scss": {
     "base" : {

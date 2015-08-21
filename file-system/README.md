@@ -4,8 +4,8 @@
 {
   "web/": {
     "css/",
-    "node_modules/", // required for app
-    "assets", // images
+    "node_modules/", // required for app (symlinks?)
+    "assets",
     "js/",
     "index.html / .php"
   },
@@ -22,7 +22,9 @@
 
 The web folder should be independant from anything outside of it.
 You should be able to push the contents of this folder up to the server without worrying about bringing down the server
-(after compile-ing all of the scss into the css folder).
+(after compiling all of the scss into the css folder). The directories within the web folder (css/js) should for the most part be empty.
+You can stick a .gitDontIgnore file into each directory, and just ignore the rest of the files.
+Place your unconcatenated unminified JS into it's own folder outside of the web folder.
 
 (this model may not work for a CMS)
 
@@ -32,7 +34,7 @@ You should be able to push the contents of this folder up to the server without 
 Outside of the web folder should be all of your development tools that should never touch the server.
 In the projects root you should put your scss folders, binaries, gulpfiles, config files etc.
 
-### node modules
+### Node modules
 
 Node modules that are app dependant should be installed in the web folder, modules that are not, running
 `npm install` in the web directory should install the modules into the web folder from the `package.json`
@@ -46,11 +48,10 @@ one layer deeper
 
 The assets folder should only contain optimised images and not any images that are not required for the app. If you have any
 assets that you need to keep but they will not be displayed on your app / website, put them in their own folder outside of the web directory.
+As a rule of thumb, if your assets folder only contains images, call the folder img, if it contains other assets (like audio), call it assets (or rescources)
 
 ### JS
 
 The js folder should contain all of your JS folders, except in off cases (using an MVC like angular). If your project requires a different web layout
 then you can change this, as long as what is in the web / app folder is minified and as close to a RC as possible, think of the web folder as your build folder.
-
-
-
+Try to have only one js file in the web/js folder, concatenated and minified,
