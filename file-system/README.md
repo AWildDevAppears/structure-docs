@@ -4,23 +4,24 @@
 {
   "web/": {
     "css/",
-    "node_modules/", // required for app (symlinks?)
     "assets",
     "js/",
+    "lib/", // node modules
     "index.html / .php"
   },
   "scss/": {
     // 7 : 1 model
   },
-  "node_modules/", // dev version
+  "node_modules/",
   "bin/",
+  "src/",
   "gulpfile.js",
   "package.json"
 }
 ```
 ### Web folder
 
-The web folder should be independant from anything outside of it.
+The web folder should be independent from anything outside of it.
 You should be able to push the contents of this folder up to the server without worrying about bringing down the server
 (after compiling all of the scss into the css folder). The directories within the web folder (css/js) should for the most part be empty.
 You can stick a .gitDontIgnore file into each directory, and just ignore the rest of the files.
@@ -40,6 +41,8 @@ Node modules that are app dependant should be installed in the web folder, modul
 `npm install` in the web directory should install the modules into the web folder from the `package.json`
 one layer deeper
 
+If you are using browserify, require in your node modules, if not, install non dev modules to the web/lib/ folder, this also includes bower modules
+
 ### scss files
 
 // See the css structure doc
@@ -50,8 +53,6 @@ The assets folder should only contain optimised images and not any images that a
 assets that you need to keep but they will not be displayed on your app / website, put them in their own folder outside of the web directory.
 As a rule of thumb, if your assets folder only contains images, call the folder img, if it contains other assets (like audio), call it assets (or rescources)
 
-### JS
+### src
 
-The js folder should contain all of your JS folders, except in off cases (using an MVC like angular). If your project requires a different web layout
-then you can change this, as long as what is in the web / app folder is minified and as close to a RC as possible, think of the web folder as your build folder.
-Try to have only one js file in the web/js folder, concatenated and minified,
+The src folder should contain all of your JS files. If your project requires a different web layout then you can change this, as long as what is in the web/js folder is minified and as close to a RC as possible, think of the web folder as your build folder. Try to have only one js file in the web/js folder, concatenated and minified, you can acheive this using browserify or something similar.
