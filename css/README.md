@@ -54,6 +54,33 @@ This structure uses the 7-1 pattern, where all of the _file.scss' are imported i
 
 Sass is smart enough for you to omit the `_` of the file name when you call it
 
+### Base directory
+The base directory should contain 3 main files, `_variables.scss`, `_palette.scss` and `_normailise.scss`.
+`_variables.scss` is the file in which you should define all of your brealpoints, gutters, fonts, etc. [example](/examples/_variables.scss)
+`_palette.scss` should simply contain colors, a naming convention that is quite well used is `$brand-color%` where `%` is a value. [example](/examples/_palette.scss)
+
+If you have to set a color to an element (lets say a button) and you have multiple buttond that will use this style,
+it is best to create variables at the top of your file or at the top of  your element instantiation to state which colors
+are being used here, this makes it easier to change the color of one element without changing the color in multiple places.
+
+```scss
+  $button-primary:          $brand-color-3;
+  $button-primary-alt: darken($brand-color-3, 10%);
+  .btn--primary {
+    background-color: $button-primary;
+    &:hover {
+      background-color: $button-primary-alt;
+    }
+  }
+
+  .btn--primary--inverse {
+    border: 1px solid $button-primary-alt;
+    background-color: $white;
+    &:hover {
+      background-color: $button-primary;
+    }
+  }
+```
 
 ### Vendor directory
 The vendor directory should never be commited to the repo, it should be managed by an external tool like bower
