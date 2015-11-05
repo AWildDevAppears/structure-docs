@@ -4,11 +4,6 @@ $screen-sm: max-width 768px;
 $screen-md: max-width 992px;
 $screen-lg: max-width 1200px;
 
-// Fonts
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
-$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
-
 // Config
 $susy: (
   columns: 12,
