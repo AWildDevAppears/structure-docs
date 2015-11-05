@@ -54,6 +54,54 @@ This structure uses the 7-1 pattern, where all of the _file.scss' are imported i
 
 Sass is smart enough for you to omit the `_` of the file name when you call it
 
+
+### Vendor directory
+The vendor directory should never be commited to the repo, it should be managed by an external tool like bower
+(or slam if I ever get rountd to finishing it). You can write a bower.json file like this:
+
+```json
+  {
+  "name": "my-app",
+  "version": "1.0.0",
+  "authors": [
+    "woJburgess <jburgess@whiteoctober.co.uk>"
+  ],
+  "description": "",
+  "main": "www/index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "scss/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "susy": "~2.2.6",
+    "compass-breakpoint": "breakpoint-sass#~2.6.1",
+    "bourbon": "git@github.com:thoughtbot/bourbon.git"
+  }
+}
+```
+
+This includes some basic modules:
+susy: a grid system which is highly flexible,
+breakpoint: a cleaner way of defining media queries,
+bourbon: a bucket of helpful mixins.
+
+But we don't want this to install in the route of our project so we will also need a .bowerrc file
+
+```json
+  {
+    "directory": "scss/vendor"
+  }
+```
+
+Now our vendor directory will be created and populated whenever we run `bower install`.
+
 ## Code structure
 
 Ground rules
@@ -146,7 +194,7 @@ WRONG (one space after identifier)
   }
 ```
 
-WRONG (seni-colon needed at the end of the style)
+WRONG (semi-colon needed at the end of the style)
 ```css
   .link--primary {
     color: red
