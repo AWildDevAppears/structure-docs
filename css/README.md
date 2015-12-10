@@ -90,14 +90,14 @@ are being used here, this makes it easier to change the color of one element wit
 ```
 
 ### Utils
-The utils directory should contain global mixins and global utility classes only. This directory should not contain all
-of your projects mixins, mixins for specific elements should be with the component they relate to. i.e.
+The utils directory should contain global mixins and global utility classes only. This directory should contain all
+of your projects mixins, You should use partial placeholders for specific elements and these should be with the component they relate to. i.e.
 
 ```
 {
   components: {
     "_button.scss"
-    "_button-mixins.scss"
+    "_button_part.scss" // partial placeholders which are used for the button
   }
   utils: {
     "mixins.scss" // universal mixins only which each do very small jobs
@@ -112,7 +112,7 @@ The components directory is more or less self is explainitary, its a folder full
 
 A component is a pattern for a single module of a website (buttons, navbars, forms, etc.). Your component should be in its own file named after the component itself (e.g. `_buttons.scss`).
 
-If your component requires mixins (mixins that are NOT universal, they only relate to this component and nothing else), you should put these in a seperate file next to your existing component file (e.g. `_buttons.scss` could have a mixin file which would be called `_buttons_mixins.scss`). Try to follow a strict naming convention like this (`_<component-name>_mixins.scss`). this way you can see that these two relate as their names are very similar.
+If your component requires partial placeholders, you should put these in a seperate file next to your existing component file (e.g. `_buttons.scss` could have a file containing partial placeholders which would be called `_buttons_part.scss`). Try to follow a strict naming convention like this (`_<component-name>_part.scss`). this way you can see that these two relate as their names are very similar.
 
 The approach I have outlined is a more modular approach, meaning that each module can coexist together and can be easily moved. A page should require a module, a module should not require another module (It can require a base mixin though, I will explain this later). If your code is built well then you should be able to pull out a component from your sass files and place it in a completly seperate project and have it work straight away (with variables defined base mixins plugged in).
 
@@ -121,12 +121,12 @@ The approach I have outlined is a more modular approach, meaning that each modul
   {
     // Component 1
     "_buttons.scss"
-    "_buttons_mixins.scss"
+    "_buttons_part.scss"
     // Component 2
     "_nav.scss"
     // Component 3
     "_tabs.scss"
-    "_tabs_mixins.scss"
+    "_tabs_part.scss"
   }
 ```
 
@@ -249,6 +249,15 @@ Shame blocks should be well commented, explaining why you have commited such sin
 Of course, make sure your comment isn't half baked and half arsed like mine.
 
 
+### Mixins vs Placeholders
+
+Sass provides a number of different ways to share code between CSS rules.
+You can use mixins to insert new CSS properties and/or rules into your CSS and you can use @extend to share CSS properties between selectors.
+
+Placeholders should be component specific and therefore pinned to the component and only used for that component.
+Mixins should be completely unspecific and unrelated to any modules, they should perform a job that can be used again and again in
+many different sites and scenarios.
+
 ### Order of identifier styles
 Identifier styles should take the order: extends, includes, regulars then nests. This is what it should look like:
 
@@ -285,6 +294,20 @@ You should try to group properties under these headings.
 ```
 
 ## Code structure
+
+HTML
+* Wrap all of your class calls in double quotes
+
+Even though this works
+```html
+<div class=box></div>
+```
+
+Please wrap them like this
+```html
+<div class="box"></div>
+```
+This way, if we ever add a second class to this element, we won't need to add in the double quotes before we do.
 
 Ground rules
 * Don't chain over 3 element identifiers
@@ -416,6 +439,22 @@ RIGHT
   .element {
     min-height: 100%;
   }
+```
+
+* Use DocBlock style comments for long comments.
+
+```css
+/**
+ * The site’s main page-head can have two different states:
+ *
+ * 1) Regular page-head with no backgrounds or extra treatments; it just
+ *    contains the logo and nav.
+ * 2) A masthead that has a fluid-height (becoming fixed after a certain point)
+ *    which has a large background image, and some supporting text.
+ *
+ * The regular page-head is incredibly simple, but the masthead version has some
+ * slightly intermingled dependency with the wrapper that lives inside it.
+ */
 ```
 
 ### What goes into the repo and what goes in my gitignore?
