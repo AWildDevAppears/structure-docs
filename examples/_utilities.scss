@@ -1,0 +1,27 @@
+// Uses bourbon
+
+.cf {
+    @include clearfix();
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.u-upper {
+    text-transform: uppercase;
+}
+
+.u-caps {
+    text-transform: capitalize;
+}
+
+.u-lower {
+    text-transform: lowercase;
+}
+
+

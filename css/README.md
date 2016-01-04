@@ -5,15 +5,15 @@ Note: this is all just opinion, feel free to challenge this.
 ## Notes
 
   * Throughout this doc I will refer to identifiers, by this I mean the chain of elements/class names and id's
-    that you use to identify where you want to put your styles
+    that you use to identify where you want to put your styles.
 
-    ```css
-      identifier {
-        /* properites */
-        style: style-value;
-        style: style-value;
-      }
-    ```
+  ```css
+    identifier {
+      /* properties */
+      style: style-value;
+      style: style-value;
+    }
+  ```
 
 # Pre-processors / Pre-parsers
 
@@ -141,7 +141,7 @@ Variables should follow a strict naming convention, If you follow the same namin
 Variables should be written in the American style (`color` over `colour`), we do this because css properties use the American writing style.
 Colors should all use the same naming convention (I don't care if you choose `$brand-color1`, `$brand-color-1` or `$tone-assertive` just make sure all of your modules and projects are consistent to this standard).
 
-#### ~~Make peace not War~~ Make modules not projects
+#### Make modules not projects
 
 Think of each part of a project, not as a component of a site, but as a component of the universal styleguide (I'll explain later). You should build a project, not as a project, but as a series of components that, when used together, create your project. Modules (Components) should be standalone and not require anything but the base files of your project. A module can always be used again, a website exists, it may get manipulated and changed, but for the most part it wont be used again. A module is also a lot easier to learn and understand than something that has been written specificly for its job. Also, a module can be maintained, upgraded, torn apart and built again. As the module has a small codebase (comparitive to a whole site) It's easier to see what is trying to be acheived.
 
@@ -234,7 +234,7 @@ Your `main.scss` should be the only file you need to compile, all of your other 
 You can have a `_shame.scss` in your project pulled in last where you list all of the ugly fixes that really should not
 be there, you can also list a shame section in your main.scss below all of your file includes.
 
-Shame blocks should be well commented, explaining why you have commited such sins.
+Shame blocks should be well commented, explaining why you have committed such sins.
 
 ```scss
   /**
@@ -246,7 +246,7 @@ Shame blocks should be well commented, explaining why you have commited such sin
   }
 ```
 
-Of course, make sure your comment isn't half baked and half arsed like mine.
+Of course, make sure your comment isn't half-baked and half arsed like mine.
 
 
 ### Mixins vs Placeholders
@@ -275,6 +275,7 @@ Identifier styles should take the order: extends, includes, regulars then nests.
 All of your styles should be grouped by type, i.e margin tags should be grouped together, colors should be grouped etc.
 
 You should try to group properties under these headings.
+
 * Positioning
 * Display and Box Model
 * Color
@@ -291,6 +292,53 @@ You should try to group properties under these headings.
     background-color: green;
     color: white;
   }
+```
+
+## Linting
+
+Its always a good idea to have a linter set up, no matter what language you are writing in. SCSS is no exeption,
+you should be using a linter like [scssLint](https://github.com/brigade/scss-lint), which can integrate with
+[gulp](https://github.com/noahmiller/gulp-scsslint).
+
+With this you can be assured that no matter what happens, your code will for the most part, look the same everywhere.
+It even supports BEM syntax and can check to make sure you are using it, depending on your [config](/examples/scss-lint.yml)
+
+It is quite easy to integrate into your gulpfile, as outlined [here](https://github.com/noahmiller/gulp-scsslint)
+
+```js
+  var gulp      = require('gulp');
+
+  var sass      = require('gulp-ruby-sass');
+  var minifyCss = require('gulp-minify-css');
+  var scsslint  = require('gulp-scss-lint');
+
+
+  var paths = {
+    sassConfig: '.scss-lint.yml',
+  };
+
+  gulp.task('scss-lint', function() {
+    return gulp.src(paths.sass)
+      .pipe(scsslint({
+        'config': paths.sassConfig,
+      }))
+      .on('error', function (err) {
+        console.error(err);
+      });
+  });
+
+  gulp.task('sass', function (done) {
+      sass('./scss/main.scss')
+      .pipe(gulp.dest('./web/css/'))
+      .pipe(minifyCss({
+        keepSpecialComments: 0
+      }))
+      .pipe(rename({ extname: '.min.css' }))
+      .pipe(gulp.dest('./web/css/'))
+      .on('end', done);
+  });
+
+  gulp.task('default', ['scss-lint', 'sass']);
 ```
 
 ## Code structure
@@ -381,7 +429,8 @@ RIGHT
   }
 ```
 `.u-upper` will ALWAYS convert something to uppercase, by using the `!important` tag you are promising this to the
-codebase that `.u-upper` will never text-transform anything but to uppercase.
+code base that `.u-upper` will never text-transform anything but to uppercase. Although that doesn't mean you should use it
+just because, If your styles are written well, just including classes like this last should be enough.
 
 ## Layout
 
@@ -390,7 +439,7 @@ WRONG (space out your css, let minifiers do this part for you)
   .link--primary {color: red}
 ```
 
-WRONG (Use shorthand, this can be acheived in one line: `margin: 20px 10px;`)
+WRONG (Use shorthand, this can be achieved in one line: `margin: 20px 10px;`)
 ```css
   .link--primary {
     margin-left: 10px;
