@@ -146,6 +146,29 @@ Colors should all use the same naming convention (I don't care if you choose `$b
 Think of each part of a project, not as a component of a site, but as a component of the universal styleguide (I'll explain later). You should build a project, not as a project, but as a series of components that, when used together, create your project. Modules (Components) should be standalone and not require anything but the base files of your project. A module can always be used again, a website exists, it may get manipulated and changed, but for the most part it wont be used again. A module is also a lot easier to learn and understand than something that has been written specificly for its job. Also, a module can be maintained, upgraded, torn apart and built again. As the module has a small codebase (comparitive to a whole site) It's easier to see what is trying to be acheived.
 
 
+All modules should come with basic documentation and a `_structure.ref`, what is a `_structure.ref` you may ask? This file
+is a list of all of the variables in your module, along with what they default to and all of the classes in your module along with their heirarchy. You should write your `ref` file in json format.
+
+```json
+{
+  "name": "Buttons", // Basic information on module
+  "version": "1.6",
+  "variables": { // All of the variables in this module and their defaults
+    "btn-radius": "5px",
+    "btn-default-color": "#333",
+    "btn-default-bg": "#e5e4e2"
+  },
+  "classes": {
+    "btn": { // Parent class
+      "btn--rounded": true // Modifier for parent class (true if has no children or an object of children)
+    }
+  },
+  "mixins": {},
+  "placeholders": {}
+}
+```
+
+
 ### What is the Universal Styleguide
 
 The Universal Styleguide (USG) is the place where your beautiful modules can thrive and exist without fear of conflict (They are completely unique and can coexist and exist alone as none of their code conflicts or manipulates the other). The USG should be where you go before writing a line of code, withing the universal styleguide you can grab modules and stick them into your page, saving you time building a component which you have built a thousand times before. Once you have grabbed your component you can tweak it to suit the page. As no two websites are 100% the same, a component that has made its way to the universal styleguide should not contain any site specific changes, it should be as raw as possible and as adaptive as possible (You build a form module on a full width block, I should be able to grab that module and stick it in a box half the size and make it inline without too much trouble). Each module should be well documented on what it does. This way it's easier to make valid choices into which components you will and will not need, and what each component does.
@@ -154,7 +177,7 @@ A component can have modifiers (`form__input` can have a modifier class of `form
 
 ### Vendor directory
 The vendor directory should never be commited to the repo, it should be managed by an external tool like bower
-(or slam if I ever get rounnd to finishing it). You can write a bower.json file like this:
+(or shaker if I ever get rounnd to finishing it). You can write a bower.json file like this:
 
 ```json
   {
@@ -340,6 +363,23 @@ It is quite easy to integrate into your gulpfile, as outlined [here](https://git
 
   gulp.task('default', ['scss-lint', 'sass']);
 ```
+## Variables
+
+Variables should be linked to modules, kept within the module at the top of the file with the default flag, These variables
+should be overwitten in `base/_variables.scss`.
+
+> But, why? that just means more variables, and that means that you have more variables everywhere
+
+True, but having module specific variables, with a fixed naming convention means that modules are easier to manipulate and reuse,
+it also means that, in the situation of a site/app redesign which is not black and white (a situation where it's not just
+a case of changing color a to color b), you can easily change these variables from one file, without traipsing through 30 or so files, changing
+every instance of $brand-color-1 for $brand-color-2, but only on certain elements.
+
+The point of the USG structure is to seperate components from dependencies and style, pulling them back to barebones to reduce repitition
+by increasing reusability. Moving variables into the module increases a modules ability to work standalone and reduces dependencies on other modules
+(what if my nav color isn't $brand-color1 and is in fact $brand-color4? I shouldn't have to tweak the module every time I drop it into my project, I
+should just have to configure it instead).
+
 
 ## Code structure
 
